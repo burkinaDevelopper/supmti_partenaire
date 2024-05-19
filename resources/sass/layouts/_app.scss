@@ -1,0 +1,110 @@
+.header-content{
+    height: 92px;
+    padding-left: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+
+    header{
+        display: grid;
+        grid-template-columns: 40% 60%;
+        height: 100%;
+        align-items: center;
+    }
+    .log{
+        display: flex;
+        .toggle-btn{
+            margin-right: 20px;
+            cursor: pointer;
+        }
+        .toggle-btn span {
+            width: 25px;
+            height: 4px;
+            border-radius: 5px;
+            background: $blue;
+            display: block;
+            margin-top: 3px;
+            transition: 0.3s ease;
+            
+          }
+    }
+    img{
+        width: 130px;
+    }
+    h1{
+        color: $blue;
+        font-size: 1.5rem;
+        font-weight: 800;
+    }
+
+    .side-bar{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0px;
+        visibility: hidden;
+        background: $blue;
+        height: 100vh;
+        transition: 0.3s;
+        
+
+        span,h3,.icon{
+            color: white;
+        }
+
+        .icon{
+            float: right;
+            padding: 10px;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+        .avatar{
+            text-align: center;
+            margin-top: 40px;
+
+            span{
+                font-size: 6rem;
+            }
+            h3{   
+                font-size: 1.5rem;
+                margin-top: -15px;
+            }
+        }
+        
+        .link{
+           padding-top: 10px;
+            
+            li{
+               
+                font-size: 1.2rem;
+                font-weight: 400;
+                width: 100%;
+                height: 55px;
+                margin: auto 0;
+
+                &:hover , .active{
+                    background: rgb(9,184,184);
+                }
+
+                a{
+                    height: 100%;
+                    width: 100%;
+                    cursor: pointer;
+                    display: block;
+                }
+                
+                
+               
+                .link-container{
+                   padding-left: 10px;
+                   margin-top: 20px;
+                }
+
+                span{
+                    padding-right: 8px;
+                    height: 100%;
+                    width: 300px;
+                }
+            }
+        }
+    }
+}
