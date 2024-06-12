@@ -2,7 +2,11 @@
 
 use App\Http\Controllers\{
     ProfileController,
-    NewRegisterController
+    NewRegisterController,
+    ManagerInscription,
+    ManagerPayment,
+    NewRecuController,
+    RequestManagerController,
 };
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -32,7 +36,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/inscription/nouvelle', [NewRegisterController::class, 'inscription'])->name('inscription');
+    Route::post('/inscription/store', [NewRegisterController::class, 'inscriptionStore'])->name('inscription.store');
+    Route::get('/inscription/liste', [ManagerInscription::class, 'gestionInscription'])->name('inscription.liste');
+    Route::get('/inscription/recu', [ManagerPayment::class, 'payment'])->name('payment');
+    Route::get('/inscription/nouveaupaiment', [NewRecuController::class, 'newRecu'])->name('newRecu');
+    Route::get('/inscription/gestiondemande', [RequestManagerController::class, 'requestManager'])->name('requestManager');
 });
 
 
 require __DIR__ . '/auth.php';
+
+
+

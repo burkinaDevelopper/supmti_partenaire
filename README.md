@@ -81,3 +81,28 @@ php artisan vendor:publish --provider="Barryvdh\Debugbar\ServiceProvider"
 
 algorythme de hash
 HASH_DRIVER=argon2id
+
+https://github.com/jackocnr/intl-tel-input/blob/master/README.md
+npm install intl-tel-input --save
+
+librairie react-phone-input-2
+https://www.npmjs.com/package/react-phone-input-2
+
+react-select-country-list
+https://www.npmjs.com/package/react-select-country-list
+
+npm i react-country-region-selector
+
+npm install --save sweetalert2 sweetalert2-react-content
+https://sweetalert2.github.io/#download
+
+npm install bootstrap
+// Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";
+// Bootstrap Bundle JS
+import "bootstrap/dist/js/bootstrap.bundle.min";
+
+Search
+BLOG POST
+How to Convert HTML to PDF Using React
+https://pspdfkit.com/blog/2022/how-to-convert-html-to-pdf-using-react/

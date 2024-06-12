@@ -1,0 +1,176 @@
+.request {
+    .request-box {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    h1 {
+        color: $blue;
+        font-size: 1.8rem;
+        text-align: left;
+        margin: 40px 0 6px;
+        font-weight: 900;
+    }
+
+    .box-container {
+        background: rgba(179, 174, 174, 0.267);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 35px 0 40px;
+        border-radius: 8px;
+
+        >div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        select {
+            height: 35px;
+            border-radius: 5px;
+            border: 1px solid rgb(204, 204, 204);
+        }
+
+        .btn {
+            button {
+                border-radius: 5px;
+                border: 1px solid $blue;
+                background: $blue;
+                padding: 3px 10px;
+                color: white;
+                transition: 0.15s;
+
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+
+    .search {
+        text-align: center;
+        padding: 20px 0 40px;
+
+        input {
+            height: 35px;
+            border-radius: 5px;
+            border: 1px solid rgb(204, 204, 204);
+        }
+
+        label {
+            border: 1px solid $blue;
+            background: $blue;
+            padding: 4px 7px;
+            border-radius: 5px;
+
+            i {
+                color: white;
+            }
+        }
+    }
+
+    .table-container {
+        table {
+            width: 1200px;
+            margin: 0 auto;
+
+            .action {
+                border: 1px solid rgb(194, 193, 193);
+                padding: 5px 6px;
+                border-radius: 5px;
+                background: rgb(194, 193, 193);
+                transition: 0.15s;
+                cursor: pointer;
+            }
+
+            th {
+                text-align: left;
+            }
+
+            thead {
+                background: $blue;
+                color: white;
+            }
+
+            tbody {
+                tr:nth-child(2n+1) {
+                    background: #EEEEEE;
+                }
+
+                tr:nth-child(2n) {
+                    background: white;
+                }
+            }
+        }
+
+    }
+
+    .detais {
+        color: wheat;
+        border: 1px solid $blue;
+        background: $blue;
+        padding: 2px 10px;
+        border-radius: 5px;
+        transform: 0.15s;
+
+        &:hover {
+            background: wheat;
+            color: $blue;
+        }
+    }
+
+    .modal {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        padding-top: 100px;
+        /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        border-radius: 8px;
+
+        span {
+            font-style: italic;
+        }
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+
+        &:hover,
+        &:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    }
+
+
+}

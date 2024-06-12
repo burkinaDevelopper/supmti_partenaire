@@ -1,0 +1,120 @@
+.container-inscription{
+    .container{
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    h1{
+        color: $blue;
+        font-size: 1.2rem;
+        text-align: left;
+        margin: 40px 0 6px;
+        font-weight: 900;
+    }
+    .banner{
+        background: rgba(179, 174, 174, 0.267);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 10px 0;
+        border-radius: 8px;
+
+        > div{
+            display: flex;
+            flex-direction: column;
+        }
+        select{
+            height: 35px;
+            border-radius: 5px;
+            border: 1px solid rgb(204,204,204);
+        }
+        .btn{
+            button{
+                border-radius: 5px;
+                 border: 1px solid $blue;
+                 background: $blue;
+                 padding: 3px 10px;
+                 color: white;
+                 transition: 0.15s;
+
+                 &:hover{
+                    transform: scale(1.1);
+                 }
+            }
+        }
+    }
+    .search{
+        text-align: center;
+        padding: 20px 0 40px;
+
+        input{
+            height: 35px;
+            border-radius: 5px;
+            border: 1px solid rgb(204,204,204);
+        }
+        label{
+            border: 1px solid $blue;
+            background: $blue;
+            padding: 4px 7px;
+            border-radius: 5px;
+
+            i{
+                color: white;
+            }
+        }
+    }
+    .table-container{
+        table{
+            max-width: 1200px;
+            margin: 0 auto;
+
+            .action{
+                border: 1px solid rgb(194, 193, 193);
+                padding: 5px 6px;
+                border-radius: 5px;
+                background: rgb(194, 193, 193);
+                transition: 0.15s;
+                cursor: pointer;
+            }
+            thead{
+                background: $blue;
+                color: white;
+            }
+            tbody{
+                tr:nth-child(2n+1){
+                   background: #EEEEEE;
+                }
+                tr:nth-child(2n){
+                    background:white;
+                }
+            }
+        }
+
+        .hidden-box{
+            display: none;
+            position: relative;
+
+            .action-box{
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                background: rgb(168, 152, 152);
+                border: 1px solid rgb(168, 152, 152);
+                padding: 5px;
+                border-radius: 5px;
+
+                a{
+                    margin: 2px 0;
+                    transition: 0.15s;
+
+                    &:hover{
+                      color:$blue ;
+                    }
+                }
+            }
+        }
+        .visible-box{
+            display: block;
+        }
+        
+    }
+}

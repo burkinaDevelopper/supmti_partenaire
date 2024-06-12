@@ -1,0 +1,28 @@
+.pdf-container {
+    padding: 20px;
+    width: 100%;
+
+    h2 {
+        font-size: 1.5rem;
+        color: rgb(26, 24, 24);
+        margin: 10px 0;
+        width: 100%;
+    }
+
+    table {
+
+        th,
+        td {
+            border: 1px solid black;
+            font-size: 1.1rem;
+        }
+
+        .rest-red {
+            color: rgb(231, 20, 20);
+        }
+
+        .paye-grenn {
+            color: green;
+        }
+    }
+}

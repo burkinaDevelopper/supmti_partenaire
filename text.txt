@@ -1,0 +1,640 @@
+1.anneescolaire
+2.attestation
+3.attestation_generer
+4.banques
+5.
+
+
+    const [name, setName] = useState('');
+    const [cni, setCni] = useState('');
+    const [bacType, setBacType] = useState('');
+    const [email, setEmail] = useState('');
+    const [civilite, setCivilite] = useState('');
+    const [country, setCountry] = useState('');
+    const [prename, setPrename] = useState('');
+    const [numberPhone,setNumberPhone]=useState();
+    const [numberWhatsapp,setNumberWhatsapp]=useState();
+    const [nationalite, setNationalite] = useState('');
+    const [passport, setPassport] = useState('');
+    const [lycee, setLycee] = useState('');
+    const [city, setCity] = useState('');
+    const [diplome, setDiplome] = useState('');
+
+     <option value="9">Bac</option>
+                 <option value="10">Bac+2</option>
+                 <option value="11">DTS</option>
+                 <option value="12">DUT</option>
+                 <option value="13">DUEG</option>
+                 <option value="14">Licence</option>
+                 <option value="15">Master</option>
+                    
+                 <option value="Bac">Bac</option>
+                 <option value="Bac+2">Bac+2</option>
+                 <option value="DTS">DTS</option>
+                 <option value="DUT">DUT</option>
+                 <option value="DUEG">DUEG</option>
+                 <option value="Licence">Licence</option>
+                 <option value="Master">Master</option>   
+
+     //  const dataInput={
+    //     name,cni,bacType,email,civilite,country,prename,
+    //     numberPhone,numberWhatsapp,nationalite,passport,city,diplome,     
+    // }
+
+
+
+
+    import App from '@/Layouts/App';
+import React, { useEffect, useState } from 'react';
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+import countryList from 'react-select-country-list'
+import "react-country-state-city/dist/react-country-state-city.css";
+import Swal from 'sweetalert2'
+import axios from 'axios';
+import withReactContent from 'sweetalert2-react-content'
+import {useForm} from '@inertiajs/react';
+
+
+const NewInsciption = ({logo,nationaliteDB,diplomeDB,formationDB,levelDB,routePost,routeInscription}) => {
+    const [page, setPage] = useState(0);
+    const MySwal = withReactContent(Swal);
+    
+   
+    const [formData, setFormData] = useState({
+        name:"",
+        cni:"",
+        bacType:"",
+        email:"",
+        civilite:"",
+        country:"",
+        prename:"",
+        nationalite:"",
+        passport:"",
+        city:"",
+        diplome:"",
+        centre:"",
+        diplomeNew:"",
+        formation:"",
+        level:"", 
+      });
+      const [numberPhone,setNumberPhone]=useState();
+      const [numberWhatsapp,setNumberWhatsapp]=useState(); 
+      const msg = [];
+      const msg1 = [];
+
+    
+      const nextPage = (e) => {
+        e.preventDefault();
+        if (validatePage()) {
+          setPage((prevPage) => prevPage + 1);
+        } else { 
+            MySwal.fire({
+                title: <p>les champs non remplie</p>,
+                html:msg.map(list=>(
+                    `<div style="color:red;" >${list}</div>`
+                )).join(' '),
+                showCancelButton: true,
+                cancelButtonText: "Remplir",
+                cancelButtonColor:"rgb(23, 216, 23)",
+                showConfirmButton:false,
+              }) 
+              msg.splice(0, msg.length)
+        }
+      };
+      
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  const prevPage = () => {
+    setPage((prevPage) => prevPage - 1);
+  };
+
+  
+  const validatePage = () => {
+    if (page === 0){
+        if (formData.name==="") {
+            msg.push('le champs nom est vide')
+        }
+        if (formData.cni==="") {
+            msg.push('le champs cni est vide')
+        }
+        if (formData.bacType==="") {
+            msg.push('le champs bac est vide')
+        }
+        if (formData.email==="") {
+            msg.push('le champs email est vide')
+        }
+        if (formData.civilite==="") {
+            msg.push('le champs civilite est vide')
+        }
+        if (formData.country==="") {
+            msg.push('le champs pays est vide')
+        }
+        if (formData.prename==="") {
+            msg.push('le champs prenom est vide')
+        }
+        if (numberPhone===undefined) {
+            msg.push('le champs telephone est vide')
+        }
+        if (numberWhatsapp===undefined) {
+            msg.push('le champs whatsapp est vide')
+        }
+        if (formData.nationalite==="") {
+            msg.push('le champs nationalite est vide')
+        }
+        if (formData.passport==="") {
+            msg.push('le champs passport est vide')
+        }
+        if (formData.lycee==="") {
+            msg.push('le champs lycee est vide')
+        }
+        if (formData.city==="") {
+            msg.push('le champs ville est vide')
+        }
+        if (formData.diplome==="") {
+            msg.push('le champs diplome est vide')
+        }
+        if (msg.length!==0) {
+            return false;
+        }   
+    };
+    if (page===1) {
+        if (formData.centre==="") {
+            msg1.push('le champs centre est vide')
+        }   
+        if (formData.diplomeNew==="") {
+            msg1.push('le champs diplome est vide')
+        }   
+        if (formData.formation==="") {
+            msg1.push('le champs formation est vide')
+        }   
+        if (formData.level==="") {
+            msg1.push('le champs niveau demande est vide')
+        } 
+        if (msg1.length!==0) {
+            return false;
+        } 
+          
+    };
+    return true;
+    
+  }; 
+  const handleSubmit=()=>{
+    if (validatePage()) {
+        axios.post(routePost,formData)
+        //   .then(function () {
+        //     MySwal.fire({
+        //         title: <p>Bien enregistrer</p>,
+        //         confirmButtonText: "continue",
+        //         showConfirmButton:true,
+        //       }).then(()=>{
+        //           window.location.href=routeInscription;
+        //       }) 
+        //   })
+        
+      } else { 
+          MySwal.fire({
+              title: <p>les champs non remplie</p>,
+              html:msg1.map(list=>(
+                  `<div style="color:red;" >${list}</div>`
+              )).join(' '),
+              showCancelButton: true,
+              cancelButtonText: "Remplir",
+              cancelButtonColor:"rgb(23, 216, 23)",
+              showConfirmButton:false,
+            }) 
+            msg1.splice(0, msg1.length)
+      }
+  } 
+ 
+    return (
+        <div className='newInscription'>
+            <App logo={logo} />
+           
+           <form action="">
+           <div className="box">
+            <div className="langue">
+            <span >FR / EN</span>
+            </div>
+            <h1 className='title1'>Ajouter une Pré-Inscription </h1>
+            <div className="form-container">
+                <p>N.B : les champs marqués d'un astérisque * sont obligatoires</p>
+                <div className={page==1? "progress page2":"progress"}>
+                    <span>1</span>
+                    <span>2</span> 
+                    
+                </div>
+                {page === 0 && <Page1 formData={formData} handleChange={handleChange} numberPhone={numberPhone} 
+                setNumberPhone={setNumberPhone} numberWhatsapp={numberWhatsapp} setNumberWhatsapp={setNumberWhatsapp} 
+                nationaliteDB={nationaliteDB} />}
+                {page === 1 && <Page2 formData={formData} handleChange={handleChange} diplomeDB={diplomeDB} formationDB={formationDB}
+                  levelDB={levelDB}  /> }
+                <div className="next" id='btn'>
+                    {page == 0 && <button onClick={nextPage}>Suivant <i className="fa-solid fa-arrow-right"></i></button>}
+                    {page >0 && (<div id='btn-display'><button  onClick={prevPage} className="button"><i className="fa-solid fa-arrow-left"></i>Précédent</button> <button onClick={handleSubmit}>Inscrivez vous</button></div> )}
+                 </div>
+              </div>
+            </div>
+           </form>
+        </div>
+    );
+};
+
+const Page1 = ({formData,handleChange,numberPhone,setNumberPhone,numberWhatsapp,setNumberWhatsapp,nationaliteDB}) => {
+    const [countries, setCountries] = useState(countryList().getData());
+    const countriesData = countries.map(element => element.label);
+    
+    return (
+        <div>
+        <div className="container-top">
+        <div className="left-part">
+        <div className="name">
+             <label htmlFor="">civilité */nom *</label>
+              <div>
+              <select 
+                value={formData.civilite}
+                name="civilite"
+                onChange={(e)=>handleChange(e)} 
+              >
+                 <option value="M.">M.</option>
+                 <option value="Mme.">Mme.</option>
+                 <option value="Mlles.">Mlles.</option>
+             </select>
+             <input
+              value={formData.name}
+              name="name"
+              onChange={(e)=>handleChange(e)}
+              type="text" className='name'/>
+              </div>
+         </div>
+         <div className="telephone">
+             <label htmlFor="">Téléphone *</label>
+             <PhoneInput
+                 className="telephone-input"
+                 value={numberPhone}
+                 name="telephone"
+                 country='ma'
+                 onChange={setNumberPhone}/>
+         </div>
+         <div className="email">
+             <label htmlFor="">Adresse mail *</label>
+             <input
+              value={formData.email}
+              name="email"
+              onChange={(e)=>handleChange(e)}
+              type="email"  placeholder='exemple@mail.com'/>
+         </div>
+         <div className="cni">
+             <label htmlFor="">CIN *(requis pour les marocains)</label>
+             <input
+              value={formData.cni}
+              name="cni"
+              onChange={(e)=>handleChange(e)}
+              type="text" placeholder='CNI'/>
+         </div>
+         <div className="bac-type">
+             <label htmlFor="">Type de Baccalauréat *</label>
+             <select 
+              name="bacType"
+              value={formData.bacType}
+              onChange={(e)=>handleChange(e)}
+              >
+                 <option value="">--Type de Baccalaurét--</option>
+                 <option value="Baccalaurét Scientifique">Baccalaurét Scientifique</option>
+                 <option value="Baccalaurét Economique">Baccalaurét Economique</option>
+                 <option value="Baccalaurét Litteraire">Baccalaurét Litteraire</option>
+                 <option value="Autre Baccalaurét">Autre Baccalaurét</option>     
+             </select>
+             
+         </div>
+         <div className="country">
+             <label htmlFor="">Pays / Ville d'obtention <br /> Pays *</label>
+             <select 
+              value={formData.country}
+              name="country"
+              onChange={(e)=>handleChange(e)}
+              className='country'>
+             {countriesData && countriesData.map((country,index)=>(
+                     <option key={index} value={country}>{country}</option>
+                 ))}
+             </select>
+         </div>
+        </div>
+    
+        <div className="right-part">
+             <div className="prename">
+                 <label htmlFor="">Prenom*</label>
+                 <input 
+                 value={formData.prename}
+                 name="prename"
+                 onChange={(e)=>handleChange(e)}
+                 type="text"  placeholder='Prenom'/>
+             </div>
+             <div className="whatsapp-number">
+                 <label htmlFor="">Numero whatsapp</label>
+                      <PhoneInput
+                         placeholder="0650-123456"
+                         value={numberWhatsapp}
+                         country='ma'
+                         name="numberWhatsapp"
+                         onChange={setNumberWhatsapp}/>
+             </div>
+             <div className="nationalite">
+                <label htmlFor="">Nationalite*</label>
+                  <select 
+                    name="nationalite"
+                    value={formData.nationalite}
+                    onChange={(e)=>handleChange(e)}
+              >
+                {nationaliteDB && nationaliteDB.map((value,index)=>( 
+                    <option value={value.nat_nom} key={index}>{value.nat_nom}</option>
+                ))}
+                    
+             </select>
+             </div>
+             <div className="passport">
+                 <label htmlFor="">Numéro de passeport *(requis pour les étrangers)</label>
+                 <input
+                 value={formData.passport}
+                 name="passport"
+                 onChange={(e)=>handleChange(e)}
+                  type="text"   />
+             </div>
+             <div className="lycee">
+                 <label htmlFor="">Nom du lycée *</label>
+                 <input
+                 value={formData.lycee}
+                 name="lycee"
+                 onChange={(e)=>handleChange(e)} 
+                  type="text" placeholder='Nom du lycée' />
+             </div>
+             <div className="city">
+                 <label htmlFor="">Ville*</label>
+                 <input
+                 value={formData.city}
+                 name="city"
+                 onChange={(e)=>handleChange(e)} 
+                   type="text" />
+             </div>
+        </div>
+        </div>
+        <div className="container-bottom">
+          <div>
+          <label htmlFor="">Diplôme d'accès *</label>
+           <select 
+           value={formData.diplome}
+           name="diplome"
+           onChange={(e)=>handleChange(e)}  >
+                 <option value="Bac">Bac</option>
+                 <option value="Bac+2">Bac+2</option>
+                 <option value="DTS">DTS</option>
+                 <option value="DUT">DUT</option>
+                 <option value="DUEG">DUEG</option>
+                 <option value="Licence">Licence</option>
+                 <option value="Master">Master</option>   
+           </select>
+          </div>
+         
+        </div>
+       </div>
+    );
+};
+
+
+
+const Page2 = ({formData,handleChange,diplomeDB,formationDB,levelDB}) => {
+    function generateRandomString(e) {
+        e.preventDefault();
+        const length = 6;
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        const charactersLength = characters.length;
+        
+        for (let i = 0; i < length; i++) {
+          const randomIndex = Math.floor(Math.random() * charactersLength);
+          result += characters.charAt(randomIndex);
+        }
+        
+        document.getElementById('result').textContent = result;
+      }
+    return (
+        <div className='page2-container'>
+        <div>
+        <div className="container-part1">
+                <div className="centre">
+                    <label htmlFor="">centre *</label>
+                    <select 
+                    name="centre"
+                    value={formData.centre}
+                    onChange={(e)=>handleChange(e)}
+                    >
+                        <option value="">--centre--</option>
+                        <option value="SupMTI Rabat">SupMTI Rabat</option>
+                        <option value="SupMTI Meknès">SupMTI Meknès</option>
+                        <option value="SupMTI Beni Mellal">SupMTI Beni Mellal</option>
+                        <option value="SupMTI Oujda">SupMTI Oujda</option>
+                        <option value="SupMTI Taza">SupMTI Taza</option>     
+                        <option value="SupMTI Togo">SupMTI Togo</option>     
+                        <option value="SupMTI Dakar">SupMTI Dakar</option>     
+                    </select>
+                    
+                </div>
+                <div className="diplomeNew">
+                    <label htmlFor=""> Diplome souhaite *</label>
+                    <select 
+                    name="diplomeNew"
+                    value={formData.diplomeNew}
+                    onChange={(e)=>handleChange(e)}
+                    >
+                        <option value="">--Diplome---</option>
+                        {diplomeDB && diplomeDB.map((value,index)=>(
+                            <option  value={value.dip_nom} key={index}>{value.dip_nom}</option>
+                        ))}      
+                    </select>  
+                </div>
+                <div className="formation">
+                    <label htmlFor="">Formation souhaitè *</label>
+                    <select 
+                    name="formation"
+                    value={formData.formation}
+                    onChange={(e)=>handleChange(e)}
+                    >
+                        <option value="">--Formation souhaitè--</option>
+                        {formationDB && formationDB.map((value,index)=>(
+                            <option key={index} value={value.fil_nom}>{value.fil_nom}</option>
+                        ))}
+                            
+                    </select>
+                    
+                </div>
+                <div className="level">
+                    <label htmlFor="">Niveau demande *</label>
+                    <select 
+                    name="level"
+                    value={formData.level}
+                    onChange={(e)=>handleChange(e)}
+                    >
+                        <option value="">--Niveau demande--</option>
+                        {levelDB && levelDB.map((value,index)=>(
+                            <option key={index} value={value.td_nom}>{value.td_nom}</option>
+                        ))}
+                            
+                    </select>
+                    
+                </div>
+        </div>
+        <div className="container-part2">
+            <div className="random">
+                <p id='result'>Click pour Generer</p>
+                <button onClick={generateRandomString}><i className="fa-solid fa-spinner"></i></button>
+            </div>
+            <div className="randon-input">
+                <label htmlFor="">Saisissez le caracters que vous voyez *</label>
+                <input type="text" />
+            </div>
+        </div>
+      </div>
+            
+        </div>
+    );
+};
+
+
+export default NewInsciption;
+
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setData({
+//       ...data,
+//       [name]: value
+//     });
+//   };
+
+
+
+
+   public function inscriptionStore()
+    { 
+        request()->validate([
+        "name"=>['required'],
+        "cni"=>['sometimes'],
+        "bacType"=>['required'],
+        "email"=>['required'],
+        "civilite"=>['required'],
+        "country"=>['required'],
+        "prename"=>['required'],
+        "telephone"=>['required'],
+        "numberWhatsapp"=>['sometimes'],
+        "nationalite"=>['required'],
+        "passport"=>['sometimes'],
+        "city"=>['required'],
+        "diplome"=>['required'],
+        "centre"=>['required'],
+        "diplomeNew"=>['required'],
+        "formation"=>['required'],
+        "level"=>['required'],
+        "lycee"=>['required'],
+        ]);
+        DB::beginTransaction();
+        try {
+           DB::insert('insert into preinscription (
+                    pre_seq,
+                    pre_numero,
+                    pre_civilite,
+                    pre_nom,
+                    pre_prenom,
+                    pre_tel,
+                    pre_whatsapp,
+                    pre_nat_id,
+                    pre_cin,
+                    pre_passeport,
+                    pre_type_bac_id,
+                    pre_bac_etablissement,
+                    pre_bac_pays_id,
+                    pre_bac_ville_id,
+                    pre_centre_id,
+                    pre_classe_id,
+                    pre_for_id,
+                    pre_niv_id,
+                    pre_date,
+                     ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+                     [18,
+                     'P000001/22',
+                     request('civilite'),
+                     request('name'),
+                     request('prename'),
+                     request('telephone'),
+                     request('numberWhatsapp'),
+                     request('nationalite'),
+                     request('cni'),
+                     request('passport'),
+                     request('bacType'),
+                     request('lycee'),
+                     request('country'),
+                     request('city'),
+                     request('centre'),
+                     request('diplomeNew'),
+                     request('formation'),
+                     request('level'),
+                     167241745,
+                     ]
+                 );
+                 DB::insert('insert into n_utilisateurs 
+                 (user_nom,
+                 user_login,
+                 user_estActif,
+                 user_role_id,
+                 user_ref_id,
+                 is_verified,
+                  ) values (?, ?,?,?,?,?)', 
+                 [
+                    request('email'),
+                    Str::uuid(),
+                    1,
+                    3,
+                    5,
+                    0,
+                ]);
+                DB::insert('insert into n_diplomes_acces (
+                    da_specialite
+                     ) values (?)', 
+                   [
+                    request('diplome'),
+                   ]);
+                DB::insert('insert into n_diplomes (
+                    da_specialite
+                     ) values (?)', 
+                   [
+                    request('diplome'),
+                   ]);
+        } catch (ValidationException $e) {
+            DB::rollback();
+            dd($e->getErrors());
+        }
+        DB::commit();
+       return route('inscription');
+         
+    }
+
+
+
+(user_nom,
+                
+                  ) values (?, ?,?,?,?,?)', 
+                 [
+                    ,
+                    ,
+                    
+                    3,
+                    5,
+                    0,
+
+                    return ->back()-;
